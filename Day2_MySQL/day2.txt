@@ -1,0 +1,439 @@
+mysql> use mydatabase;
+Database changed
+mysql> desc tbl_employee;
+ERROR 1146 (42S02): Table 'mydatabase.tbl_employee' doesn't exist
+mysql> create table tbl_employee(eid integer,ename varchar2(30),esalary integer,dno integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2(30),esalary integer,dno integer)' at line 1
+mysql> CREATE TABLE tbl_employee (
+    ->     eid INTEGER,
+    ->     ename VARCHAR(50),
+    ->     esalary INTEGER
+    ->    dno INTEGER);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dno INTEGER)' at line 5
+mysql> CREATE TABLE tbl_employee (
+    ->     eid INTEGER,
+    ->     ename VARCHAR(50),
+    ->     esalary INTEGER,
+    ->    dno INTEGER);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | YES  |     | NULL    |       |
+| ename   | varchar(50) | YES  |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| dno     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> INSERT into ebl_employee values(&eid,&ename,&esalary,&dno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&eid,&ename,&esalary,&dno)' at line 1
+mysql> INSERT into tbl_employee values(&eid,&ename,&esalary,&dno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&eid,&ename,&esalary,&dno)' at line 1
+mysql> INSERT into tbl_employee values(101,'Neha',15000,10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT into tbl_employee values(102,'Satvika',15000,20);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into tbl_employee values(103,'Harshika',15000,30);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into tbl_employee values(104,'Miyo',12000,10);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> update tbl_employee set dno=20 where eid=102;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from tbl_employee;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  101 | Neha     |   15000 |   10 |
+|  102 | Satvika  |   15000 |   20 |
+|  103 | Harshika |   15000 |   30 |
+|  104 | Miyo     |   12000 |   10 |
++------+----------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> update tbl_employee set dno=20 where eid=104;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update tbl_employee set dno=10 where eid=103;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tbl_employee;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  101 | Neha     |   15000 |   10 |
+|  102 | Satvika  |   15000 |   20 |
+|  103 | Harshika |   15000 |   10 |
+|  104 | Miyo     |   12000 |   20 |
++------+----------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select dno,count(*) from tbl_employee group by dno;
++------+----------+
+| dno  | count(*) |
++------+----------+
+|   10 |        2 |
+|   20 |        2 |
++------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select dno,count(*) as 'total no. of employees' from tbl_employee group by dno;
++------+------------------------+
+| dno  | total no. of employees |
++------+------------------------+
+|   10 |                      2 |
+|   20 |                      2 |
++------+------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee group by dno;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |        30000 |   15000.0000 |        15000 |        15000 |
+|   20 |        27000 |   13500.0000 |        12000 |        15000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.02 sec)
+
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee group by dno having min(esalary)>12000;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |        30000 |   15000.0000 |        15000 |        15000 |
++------+--------------+--------------+--------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee group by dno order by dno;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |        30000 |   15000.0000 |        15000 |        15000 |
+|   20 |        27000 |   13500.0000 |        12000 |        15000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.02 sec)
+
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee group by dno order by dno desc;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   20 |        27000 |   13500.0000 |        12000 |        15000 |
+|   10 |        30000 |   15000.0000 |        15000 |        15000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee order by dno desc group by dno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by dno' at line 1
+mysql> select dno,sum(esalary),avg(esalary),min(esalary),max(esalary) from tbl_employee order by dno desc group by dno; --error
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by dno' at line 1
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--error' at line 1
+mysql> select * from tbl_employee order by eid;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  101 | Neha     |   15000 |   10 |
+|  102 | Satvika  |   15000 |   20 |
+|  103 | Harshika |   15000 |   10 |
+|  104 | Miyo     |   12000 |   20 |
++------+----------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from tbl_employee order by eid desc;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  104 | Miyo     |   12000 |   20 |
+|  103 | Harshika |   15000 |   10 |
+|  102 | Satvika  |   15000 |   20 |
+|  101 | Neha     |   15000 |   10 |
++------+----------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table tbl_department(dno integer,dname varchar2(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2(20))' at line 1
+mysql> create table tbl_department(dno integer,dname varchar(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into tbl_department values(10,'development');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into tbl_department values(20,'testing');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from tbl_department;
++------+-------------+
+| dno  | dname       |
++------+-------------+
+|   10 | development |
+|   20 | testing     |
++------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select eid from tbl_employee where dno=(select dname from tbl_department);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select eid,dname from tbl_employee where dno=(select dname from tbl_department);
+ERROR 1054 (42S22): Unknown column 'dname' in 'field list'
+mysql> select eid from tbl_employee where dno=(select dname from tbl_department);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select eid from tbl_employee where dno=(select dname from tbl_department where id=101);
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> select eid from tbl_employee where dno=(select dname from tbl_department where eid=101);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select dname from tbl_department where dno=(select do from tbl_employee where eid=101);
+ERROR 1054 (42S22): Unknown column 'do' in 'field list'
+mysql> select dname from tbl_department where dno=(select dno from tbl_employee where eid=101);
++-------------+
+| dname       |
++-------------+
+| development |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select dname from tbl_department where dno=(select dno from tbl_employee);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select * from tbl_employee where dno=(select dname from tbl_department where dname='testing');
+Empty set (0.00 sec)
+
+mysql> select * from tbl_employee where dno=(select dno from tbl_department where dname='testing');
++------+---------+---------+------+
+| eid  | ename   | esalary | dno  |
++------+---------+---------+------+
+|  102 | Satvika |   15000 |   20 |
+|  104 | Miyo    |   12000 |   20 |
++------+---------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> select dname from tbl_department where dno=(select dno from tbl_employee where ename='Neha');
++-------------+
+| dname       |
++-------------+
+| development |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select dno from tbl_department where dno=(select dno from tbl_employee where eid=101 or eid=102);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select dname from tbl_department where dno in (select dno from tbl_employee where eid=101 or eid=102);
++-------------+
+| dname       |
++-------------+
+| development |
+| testing     |
++-------------+
+2 rows in set (0.02 sec)
+
+mysql> drop tbl_employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tbl_employee' at line 1
+mysql> drop table tbl_employee;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE tbl_employee (
+    ->     eid INTEGER PRIMARY KEY,
+    ->     ename VARCHAR(50) NOT NULL,
+    ->     esalary INTEGER check(esalary>0),
+    -> email varchar(20) unique, dno integer);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(50) | NO   |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  | UNI | NULL    |       |
+| dno     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT into tbl_employee values(101,'Neha',15000,'neha@gmail.com',10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT into tbl_employee values(101,'Miyo',15000,'miyo@gmail.com',10);
+ERROR 1062 (23000): Duplicate entry '101' for key 'tbl_employee.PRIMARY'
+mysql> INSERT into tbl_employee values(101,'Miyo',0,'miyo@gmail.com',10);
+ERROR 3819 (HY000): Check constraint 'tbl_employee_chk_1' is violated.
+mysql> INSERT into tbl_employee values(102,'Miyo',10000,'miyo@gmail.com',10);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> drop table tbl_employee;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop table tbl_department;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table tbl_dept(dno integer primary key,dname varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table tbl_employee(eid integer primary key,ename varchar(30), esalary integer, dno integer references tbl_dept(dno));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(30) | YES  |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| dno     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc tbl_dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| dname | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT into tbl_employee values(101,'Miyo',25000,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop table tbl_employee;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table tbl_employee(eid integer primary key,ename varchar(30), esalary integer, foreign key(dno) references tbl_dept(dno));
+ERROR 1072 (42000): Key column 'dno' doesn't exist in table
+mysql> create table tbl_employee(eid integer primary key,ename varchar(30), esalary integer, dno integer, foreign key(dno) references tbl_dept(dno));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT into tbl_employee values(101,'Miyo',25000,10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`mydatabase`.`tbl_employee`, CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `tbl_dept` (`dno`))
+mysql> delimiter//
+    -> create procedure insertEmployee(in eid integer,in ename varchar(20), in esalary integer,in dno integer)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)
+    -> values(eid, ename,esalary,dno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delimiter//create procedure insertEmployee(in eid integer,in ename varchar(20), ' at line 1
+mysql> delimiter//
+    -> create procedure insertEmployee(in eid integer,in ename varchar(20), in esalary integer,in dno integer)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)
+    -> values(eid, ename,esalary,dno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delimiter//create procedure insertEmployee(in eid integer,in ename varchar(20), ' at line 1
+mysql> delimiter//
+    -> create procedure insertEmployee(in eid integer,in ename varchar(20), in esalary integer,in dno integer)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)
+    -> values(eid, ename,esalary,dno)
+    -> end//
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delimiter//create procedure insertEmployee(in eid integer,in ename varchar(20), ' at line 1
+mysql> -- Step 1: Change delimiter (note the space)
+mysql> DELIMITER //
+mysql>
+mysql> -- Step 2: Create the procedure
+mysql> CREATE PROCEDURE insertEmployee(
+    ->     IN eid INTEGER,
+    ->     IN ename VARCHAR(20),
+    ->     IN esalary INTEGER,
+    ->     IN dno INTEGER
+    -> )
+    -> BEGIN
+    ->     INSERT INTO tbl_employee(eid, ename, esalary, dno)
+    ->     VALUES(eid, ename, esalary, dno);
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> -- Step 3: Reset delimiter back to semicolon
+mysql> DELIMITER ;
+mysql> call insertEmployee(103,'Hello',3000,10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`mydatabase`.`tbl_employee`, CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `tbl_dept` (`dno`))
+mysql> insert into tbl_dept(10,'Dev');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10,'Dev')' at line 1
+mysql> insert into tbl_dept values(10,'Dev');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> call insertEmployee(103,'Hello',3000,10);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from tbl_employee;
++-----+-------+---------+------+
+| eid | ename | esalary | dno  |
++-----+-------+---------+------+
+| 103 | Hello |    3000 |   10 |
++-----+-------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create procedure getEmployeeName(in empid integer, out emppname varchar(20))
+    -> begin
+    -> select ename into empname from tbl_employee where eid=empid;
+    -> end //
+ERROR 1327 (42000): Undeclared variable: empname
+mysql> create procedure getEmployeeName(in empid integer, out empname varchar(20))
+    -> begin
+    -> select ename into empname from tbl_employee where eid=empid;
+    -> end //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call getEmployyeName(101,@empname);
+    -> ;
+    ->
+    ->
+    -> ^C
+mysql>
+mysql> call getEmployeeName(101,@empname);
+    -> select @empname;
+    -> ^C
+mysql> delimiter;
+    -> delimiter;^C
+mysql> delimiter ;
+mysql> call getEmployeeName(101,@empname);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> select @empname;
++----------+
+| @empname |
++----------+
+| NULL     |
++----------+
+1 row in set (0.00 sec)
+
+mysql> call getEmployeeName(103,@empname);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @empname;
++----------+
+| @empname |
++----------+
+| Hello    |
++----------+
+1 row in set (0.00 sec)
+
+mysql> create function getEmpName(empid integer) returns varchar(20) deterministic
+    -> begin
+    -> declare empname varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> delimiter //
+mysql> create function getEmpName(empid integer) returns varchar(20) deterministic
+    -> begin
+    -> declare empname varchar(20);
+    -> select ename into empname from tbl_employee where eid=empid;
+    -> return empname;
+    -> end //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delimiter ;
+mysql> select getEmpName(103);
++-----------------+
+| getEmpName(103) |
++-----------------+
+| Hello           |
++-----------------+
+1 row in set (0.00 sec)
