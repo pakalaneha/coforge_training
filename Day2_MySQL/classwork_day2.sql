@@ -1,7 +1,7 @@
 USE mydatabase;
 CREATE TABLE tbl_employee(
     eid INTEGER,
-    ename VARCHAR2(30),
+    ename VARCHAR(30),
     esalary INTEGER,
     dno INTEGER
 );
