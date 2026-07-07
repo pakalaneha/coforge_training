@@ -6,7 +6,7 @@ public class ApplicationProperties {
     public static String driver = "com.mysql.cj.jdbc.Driver";
     public static String url = "jdbc:mysql://localhost:3306/mydatabase";
     public static String username = "root";
-    public static String password = "admin";
+    public static String password = "***";
 
     // SQL Queries
     public static String insert = "insert into tbl_employee values (?,?,?,?)";
