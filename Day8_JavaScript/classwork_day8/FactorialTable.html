@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Factorial Table</title>
+<script type ="text/javascript" >
+	//ES6 (ECMAScript 2015) in JavaScript & 6th version of JavaScript,released in 2015. 
+	// It introduced many new features that make JavaScript code simpler, cleaner, and easier to write.
+	// let → Variable can be changed. var is used to declare global variable
+	// const → Variable cannot be reassigned. 
+	function factorial() {
+		var n = parseInt(document.getElementById("n").value);
+		var fact = 1;
+		var result = "<table border = '1' width = '60%'>";		
+		result += "<tr><th>Number</th><th>Factorial</th></tr>";
+		
+		for(let i = 1; i <=n; i++) {
+			fact *= i;
+			result += "<tr><td>" + i + "</td><td>"+ fact + "</td></tr>"
+		}
+		
+		result += "</table";
+		
+		document.getElementById("fact").innerHTML = result ;
+	}
+</script>
+</head>
+<body>
+	Enter No.<input type= "number" id = "n"/>
+	<button onclick="factorial()">Factorial</button>
+	<div id= "fact">
+	
+	</div>
+</body>
+</html>

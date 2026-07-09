@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Hide and Show Paragraph</title>
+<script type = "text/javascript">
+	function show() {
+		document.getElementById('paragraph').hidden = false;
+	}
+	function hide() {
+		document.getElementById('paragraph').hidden = true;
+	}
+</script>
+</head>
+<body>
+	<button onclick = "hide()">Hide Paragraph</button>
+	<button onclick = "show()">Show Paragraph</button>
+	<p id = 'paragraph'>Hello World !</p>
+</body>
+</html>

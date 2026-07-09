@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>JavaScript</title>
+<!-- Internal JS -->
+<script type ="text/javascript">
+	function sayWelcome() {
+		// document is pre defined object referring to cur web page
+		// write is a method from document
+		document.write("<b><font color = 'green'> Welcome to JavaScript</font></b>");
+	}
+	
+	// to call the functions JavScript event is required
+	// on click is javascript event
+	function sayHello() {
+		// alert for pop up window
+		// var is a dynamic type of variable based on value it acts
+		var name = "Neha";
+		//alert("Hello Neha");
+		alert("Hello "+name);
+	}
+</script>
+</head>
+<body>
+	<!-- Inline JS -->
+	<button onclick="sayWelcome()">Welcome</button>
+	<button onclick="sayHello()">Hello</button>
+</body>
+</html>

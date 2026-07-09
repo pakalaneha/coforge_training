@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>JSE6</title>
+<script type="text/javascript">
+	// default arguments
+	function add(a = 10, b = 20) {
+		console.log(a+b);
+	}
+	add(); //30
+	add(0); //20
+	add(100,200); //300
+	
+	//rest parameters
+	function addmultiple(a,b,...args) { // here ... is rest parameter(function)
+		console.log(a+b); //300
+		
+		let total = 0;
+		for(let n of args) {
+			total += n;
+		}
+		console.log(total); //60
+	}
+	
+	addmultiple(100, 200, 10, 20, 30);
+	
+	//spread operator 
+	//array, map, list or set
+	const odd = [1, 3, 5];
+	const combined = [2, 4, 6, ...odd]; //here ... is spread operator (variable)
+	console.log(combined); //(6) [2, 4, 6, 1, 3, 5]
+	
+	//template literals - no need to perform string operations use $ to wrap
+	//immutable - can change string but doesn't chnage same object it creates a new object
+	let a = 10, b = 20;
+	let str1 = `Sum : ${a+b}`;
+	console.log(str1);
+	
+	//Destructuring
+	//Array destructuring
+	let arr = [1,2,3,4,5];
+	let [x,y,z] = arr; //instead of x=arr[0],y=arr[1],z=arr[2]
+	console.log(x); //1
+	console.log(y); //2
+	console.log(z); //3
+	let [a1,b1,c1,...args] = arr;
+	console.log(args); //[4,5]
+	
+	//Object Destructuring
+	let person = {
+			firstName : 'Neha',
+			lastName : 'Pakala'
+	}
+	
+	//before es6
+	// let fname = person.firstName;
+	
+	let {firstName:fname, lastName:lname} = person;
+	console.log(fname,lname);
+	
+	const add1 = (a,b) => a + b;
+	const welcome1 = (name) => "Welcome " + name;
+	
+	function myFunction() {
+		console.log(add1(10,20));
+		console.log(welcome1("Neha"));
+	}
+	
+</script>
+</head>
+<body onload="myFunction()">
+	<!-- 
+	<button onclick="add()">add</button>
+	<button onclick="add(100)">addarg</button>
+	<button onclick="add(10,200)">addpar</button>
+	-->
+</body>
+</html>
