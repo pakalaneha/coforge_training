@@ -8,7 +8,7 @@
 		var password = document.getElementById("pwd").value;
 		
 		var req = new XMLHttpRequest(); //object creation for ajax functionality
-		req.open("GET","http://localhost:8022/MyWebApplication/PasswordStrengthServlet?pwd="+password);
+		req.open("GET","http://localhost:8022/MyWebApplication/PasswordStrengthServlet?pwd="+password,true);
 		//opening connection with server with get method
 		// ?pwd + password is the query string -- sending data to server
 		// argument true is -- communicate asynchronously
@@ -17,6 +17,25 @@
 			if(req.readyState == 4 && req.status == 200){
 				// 200 is sucess state
 				document.getElementById("result").innerHTML = req.responseText;
+			}
+		};
+		req.send();
+	
+	}
+	
+	function emailCheck() {
+		var email = document.getElementById("mail").value;
+		
+		var req = new XMLHttpRequest(); //object creation for ajax functionality
+		req.open("GET","http://localhost:8022/MyWebApplication/EmailCheckServlet?mail="+email,true);
+		//opening connection with server with get method
+		// ?pwd + password is the query string -- sending data to server
+		// argument true is -- communicate asynchronously
+		req.onreadystatechange = function() {
+			//alert(req.responseText);
+			if(req.readyState == 4 && req.status == 200){
+				// 200 is sucess state
+				document.getElementById("result1").innerHTML = req.responseText;
 			}
 		};
 		req.send();
@@ -54,8 +73,9 @@
 		</td>
 	</tr>
 	<tr>
+	<!-- onfocus rests the value when cursor is placed on text box -->
 		<td>Email ID</td>
-		<td><input type="email"></td>
+		<td><input type="email" value="Enter your Email" id="mail" onfocus="this.value = ''" onblur="emailCheck()" /><span id="result1"></span></td>
 	</tr>
 	<tr>
 		<td>Password</td>
