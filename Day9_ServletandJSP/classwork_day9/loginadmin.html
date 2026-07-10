@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+<link href="LoginStyle.css" rel ="stylesheet">
+<!--  
+Internal css
+<style type="text/css">
+	.LoginDiv {
+		border : 2px groove red;
+		width : 270px ;
+		color : green;
+		border-radius: 5px;
+		position: absolute;
+		top: 150px;
+		left: 250px;
+				
+	}
+	
+	.LoginButton {
+		border:none;
+		background:pink;
+		color:yellow;
+		border-radius: 15px;
+		cursor:pointer;
+			
+	}
+</style>
+-->
+
+</head>
+<body>
+	<!-- by default method is get -->
+	<!-- post is secure it send data via protocol -->
+	<!-- get is not secure it send data via address -->
+	<form action = "Login" method = "post"> <!-- url pattern is Login not servlet name-->
+	<!-- <label>Username</label>
+	<input type="text"> -->
+	<!-- Query String -->
+	<!-- http://localhost:8022/MyWebApplication/Login?username=admin&password=123 -->
+	<div class="LoginDiv">
+		<table>
+			<tr>
+				<td>Username :</td>
+				<td><input type="text" name = "username"></td>
+			</tr>
+			<tr>
+				<td>Password :</td>
+				<td><input type="password" name = "password"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit"
+					value="Login" class = "LoginButton"></td>
+			</tr>
+		</table>
+	</div>
+	</form>
+</body>
+</html>
