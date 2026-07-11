@@ -1,0 +1,45 @@
+{
+  "employees": [
+    {
+      "employeeId": 101,
+      "firstName": "Neha",
+      "lastName": "Pakala",
+      "email": "nehapakala@gmail.com",
+      "mobileNumber": "9876543210",
+      "id": "T-4knCuBB-c"
+    },
+    {
+      "employeeId": 102,
+      "firstName": "Harshika",
+      "lastName": "Daval",
+      "email": "harshikadaval@gmail.com",
+      "mobileNumber": "9876543211",
+      "id": "Ad0EEqCGNqQ"
+    },
+    {
+      "employeeId": 103,
+      "firstName": "Satvika",
+      "lastName": "Harivanam",
+      "email": "satvikaharivanam@gmail.com",
+      "mobileNumber": "9876543212",
+      "id": "X9Krp6lNUho"
+    },
+    {
+      "employeeId": 104,
+      "firstName": "Riya",
+      "lastName": "Gupta",
+      "email": "riyagupta@gmail.com",
+      "mobileNumber": "9876543213",
+      "id": "muL15m8KuT4"
+    },
+    {
+      "employeeId": 105,
+      "firstName": "Ananya",
+      "lastName": "Singh",
+      "email": "ananyasingh@gmail.com",
+      "mobileNumber": "9876543214",
+      "id": "MSv7ILHdYqk"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
