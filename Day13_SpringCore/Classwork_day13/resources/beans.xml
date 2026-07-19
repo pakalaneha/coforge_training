@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="employee1" class="com.coforge.model.Employee">
+		<!-- setter injection -->
+		<property name="eid" value="201"></property>
+		<property name="ename" value="Vikram Singh"></property>
+		<property name="esalary" value="25000"></property>
+		<property name="dno" value="10"></property>
+		<property name="address" ref="address1"></property>
+		<property name="project" ref="project1"></property>
+	</bean>
+
+	<bean id="employee2" class="com.coforge.model.Employee">
+		<!-- constructor injection -->
+		<constructor-arg name="eid" value="202"></constructor-arg>
+		<constructor-arg name="ename" value="Ananya Gupta"></constructor-arg>
+		<constructor-arg name="esalary" value="18000"></constructor-arg>
+		<constructor-arg name="dno" value="1"></constructor-arg>
+		<constructor-arg name="address" ref="address2"></constructor-arg>
+		<constructor-arg name="project" ref="project2"></constructor-arg>
+	</bean>
+
+	<bean id="address1" class="com.coforge.model.Address">
+		<property name="city" value="Bengaluru"></property>
+		<property name="state" value="Karnataka"></property>
+	</bean>
+
+	<bean id="address2" class="com.coforge.model.Address">
+		<constructor-arg name="city" value="Hyderabad"></constructor-arg>
+		<constructor-arg name="state" value="Telangana"></constructor-arg>
+	</bean>
+
+	<bean id="project1" class="com.coforge.model.Project">
+		<property name="pid" value="1"></property>
+		<property name="pname" value="Employee Management System"></property>
+	</bean>
+
+	<bean id="project2" class="com.coforge.model.Project">
+		<constructor-arg name="pid" value="2"></constructor-arg>
+		<constructor-arg name="pname"
+			value="Banking Application"></constructor-arg>
+	</bean>
+
+</beans>
